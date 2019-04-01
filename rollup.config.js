@@ -5,7 +5,8 @@ import replace from 'rollup-plugin-replace';
 import { uglify } from 'rollup-plugin-uglify';
 
 const input = 'src/index.js';
-const excludeAllExternals = id => !id.startsWith('.') && !id.startsWith('/');
+const excludeAllExternals = (id: string): boolean =>
+  !id.startsWith('.') && !id.startsWith('/');
 
 export default [
   // Universal module definition (UMD) build
