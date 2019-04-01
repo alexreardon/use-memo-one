@@ -1,12 +1,11 @@
-// @flow
+// eslint-disable-next-line flowtype/require-valid-file-annotation
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import { uglify } from 'rollup-plugin-uglify';
 
 const input = 'src/index.js';
-const excludeAllExternals = (id: string): boolean =>
-  !id.startsWith('.') && !id.startsWith('/');
+const excludeAllExternals = id => !id.startsWith('.') && !id.startsWith('/');
 
 export default [
   // Universal module definition (UMD) build
