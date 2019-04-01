@@ -28,5 +28,7 @@ function App(props) {
   const {name, age } = props;
   const value = useMemoOne(() => ({hello: name}), [name]);
   const getAge = useCallbackOne(() => age, [age])
+
+  // ...
 }
 ```
