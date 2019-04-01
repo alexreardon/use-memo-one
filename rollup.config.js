@@ -5,6 +5,7 @@ import replace from 'rollup-plugin-replace';
 import { uglify } from 'rollup-plugin-uglify';
 
 const input = 'src/index.js';
+const excludeAllExternals = id => !id.startsWith('.') && !id.startsWith('/');
 
 export default [
   // Universal module definition (UMD) build
@@ -16,6 +17,7 @@ export default [
       name: 'useMemoOne',
       globals: { react: 'React' },
     },
+    external: ['react'],
     plugins: [
       // Setting development env before running babel etc
       replace({ 'process.env.NODE_ENV': JSON.stringify('development') }),
@@ -32,6 +34,7 @@ export default [
       name: 'useMemoOne',
       globals: { react: 'React' },
     },
+    external: ['react'],
     plugins: [
       // Setting production env before running babel etc
       replace({ 'process.env.NODE_ENV': JSON.stringify('production') }),
@@ -43,6 +46,7 @@ export default [
   // ESM build
   {
     input,
+    external: excludeAllExternals,
     output: {
       file: 'dist/use-memo-one.esm.js',
       format: 'esm',
@@ -52,6 +56,7 @@ export default [
   // CommonJS build
   {
     input,
+    external: excludeAllExternals,
     output: {
       file: 'dist/use-memo-one.cjs.js',
       format: 'cjs',
