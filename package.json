@@ -5,6 +5,10 @@
   "main": "dist/memoize-one.cjs.js",
   "module": "dist/memoize-one.esm.js",
   "sideEffects": false,
+  "files": [
+    "/dist",
+    "/src"
+  ],
   "author": "Alex Reardon <alexreardon@gmail.com>",
   "license": "MIT",
   "repository": {
