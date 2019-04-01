@@ -1,86 +1,53 @@
 // @flow
 import React, { type Node } from 'react';
 import { mount } from 'enzyme';
-import { useMemoOne } from '../src';
+import { useCallbackOne } from '../src';
 
-type WithMemoProps = {|
+type Props = {|
   inputs: mixed[],
   children: (value: mixed) => Node,
-  getResult: () => mixed,
+  callback: Function,
 |};
 
-function WithMemo(props: WithMemoProps) {
-  const value: mixed = useMemoOne(props.getResult, props.inputs);
-  return props.children(value);
+function WithCallback(props: Props) {
+  const fn: Function = useCallbackOne(props.callback, props.inputs);
+  return props.children(fn);
 }
 
-it('should not break the cache on multiple calls', () => {
+it('should return the passed callback until there is an input change', () => {
   const mock = jest.fn().mockReturnValue(<div>hey</div>);
+  const callback = () => {};
   const wrapper = mount(
-    <WithMemo inputs={[1, 2]} getResult={() => ({ hello: 'world' })}>
+    <WithCallback inputs={[1, 2]} callback={callback}>
       {mock}
-    </WithMemo>,
+    </WithCallback>,
   );
 
   // initial call
   expect(mock).toHaveBeenCalledTimes(1);
-  expect(mock).toHaveBeenCalledWith({ hello: 'world' });
-  const initial: mixed = mock.mock.calls[0][0];
-  expect(initial).toEqual({ hello: 'world' });
+  expect(mock).toHaveBeenCalledWith(callback);
+  const first: mixed = mock.mock.calls[0][0];
+  expect(first).toBe(callback);
+
   mock.mockClear();
+  // no input change
+  // changing the reference to the callback function (will happen on each render)
+  wrapper.setProps({ inputs: [1, 2], callback: () => ({ hello: 'world' }) });
 
-  wrapper.setProps({ inputs: [1, 2] });
-
-  expect(mock).toHaveBeenCalledWith(initial);
+  expect(mock).toHaveBeenCalledTimes(1);
   const second: mixed = mock.mock.calls[0][0];
   // same reference
-  expect(initial).toBe(second);
-});
+  expect(second).toBe(first);
 
-it('should break the cache when the inputs change', () => {
-  const mock = jest.fn().mockReturnValue(<div>hey</div>);
-  const wrapper = mount(
-    <WithMemo inputs={[1, 2]} getResult={() => ({ hello: 'world' })}>
-      {mock}
-    </WithMemo>,
-  );
-
-  expect(mock).toHaveBeenCalledTimes(1);
-  expect(mock).toHaveBeenCalledWith({ hello: 'world' });
-  const initial: mixed = mock.mock.calls[0][0];
-  expect(initial).toEqual({ hello: 'world' });
   mock.mockClear();
 
-  // inputs are different
-  wrapper.setProps({ inputs: [1, 2, 3] });
-
-  expect(mock).toHaveBeenCalledWith(initial);
-  expect(mock).toHaveBeenCalledTimes(1);
-  const second: mixed = mock.mock.calls[0][0];
-  // different reference
-  expect(initial).not.toBe(second);
-});
-
-it('should use the latest get result function when the cache breaks', () => {
-  const mock = jest.fn().mockReturnValue(<div>hey</div>);
-  const wrapper = mount(
-    <WithMemo inputs={[1, 2]} getResult={() => ({ hello: 'world' })}>
-      {mock}
-    </WithMemo>,
-  );
+  // input change
+  // changing the reference to the callback function (will happen on each render)
+  const newCallback = () => {};
+  wrapper.setProps({ inputs: [1, 2, 3], callback: newCallback });
 
   expect(mock).toHaveBeenCalledTimes(1);
-  expect(mock).toHaveBeenCalledWith({ hello: 'world' });
-  const initial: mixed = mock.mock.calls[0][0];
-  expect(initial).toEqual({ hello: 'world' });
-  mock.mockClear();
-
-  // inputs are different
-  wrapper.setProps({
-    inputs: [1, 2, 3],
-    getResult: () => ({ different: 'value' }),
-  });
-
-  expect(mock).toHaveBeenCalledWith({ different: 'value' });
-  expect(mock).toHaveBeenCalledTimes(1);
+  const third: mixed = mock.mock.calls[0][0];
+  // same reference
+  expect(third).toBe(newCallback);
 });
