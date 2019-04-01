@@ -2,10 +2,15 @@
   "name": "use-memo-one",
   "version": "0.0.1",
   "description": "useMemo and useCallback, but without cache invalidation",
-  "main": "src/index.js",
+  "main": "dist/memoize-one.cjs.js",
+  "module": "dist/memoize-one.esm.js",
   "sideEffects": false,
   "author": "Alex Reardon <alexreardon@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexreardon/use-memo-one.git"
+  },
   "peerDependencies": {
     "react": "^16.8.6"
   },
