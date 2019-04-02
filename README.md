@@ -14,7 +14,9 @@
 
 > You may rely on useMemo as a performance optimization, **not as a semantic guarantee**. In the future, **React may choose to “forget” some previously memoized values** and recalculate them on next render, e.g. to free memory for offscreen components. Write your code so that it still works without useMemo — and then add it to optimize performance. - [React docs](https://reactjs.org/docs/hooks-reference.html#usememo)
 
-`useMemoOne` and `useCallbackOne` are `concurrent mode` friendly alternatives to `useMemo` and `useCallback` **that do provide semantic guarantee**. What this means is that you will always get the same reference for a memoized so long as there is no input change.
+`useMemoOne` and `useCallbackOne` are concurrent mode safe* alternatives to `useMemo` and `useCallback` **that do provide semantic guarantee**. What this means is that you will always get the same reference for a memoized so long as there is no input change.
+
+> * Based on my understanding `useMemoOne` is concurrent mode safe, but I am keen to get input from others!
 
 ## Install
 
@@ -38,3 +40,7 @@ function App(props) {
   // ...
 }
 ```
+
+## API
+
+See [`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo) and [`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback)
