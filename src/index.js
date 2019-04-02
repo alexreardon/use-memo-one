@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect } from 'react';
 import areInputsEqual from './are-inputs-equal';
 
-type Result<T> = {|
+type Cache<T> = {|
   inputs: ?(mixed[]),
   result: T,
 |};
@@ -14,18 +14,14 @@ export function useMemoOne<T>(
   inputs?: mixed[],
 ): T {
   // using useState to generate initial value as it is lazy
-  const initial: Result<T> = useState(() => ({
+  const initial: Cache<T> = useState(() => ({
     inputs,
     result: getResult(),
   }))[0];
 
-  const uncommitted = useRef<Result<T>>(initial);
-  const committed = useRef<Result<T>>(initial);
+  const committed = useRef<Cache<T>>(initial);
 
   // persist any uncommitted changes after they have been committed
-  useEffect(() => {
-    committed.current = uncommitted.current;
-  });
 
   const isInputMatch: boolean = Boolean(
     inputs &&
@@ -33,18 +29,19 @@ export function useMemoOne<T>(
       areInputsEqual(inputs, committed.current.inputs),
   );
 
-  if (isInputMatch) {
-    return committed.current.result;
-  }
+  // create a new cache if required
+  const cache: Cache<T> = isInputMatch
+    ? committed.current
+    : {
+        inputs,
+        result: getResult(),
+      };
 
-  // Concurrent mode assumption: the last render will be the one that is committed
-  // I don't think this holds true in all cases, but I need to find some documentation
-  uncommitted.current = {
-    inputs,
-    result: getResult(),
-  };
+  useEffect(() => {
+    committed.current = cache;
+  }, [cache]);
 
-  return uncommitted.current.result;
+  return cache.result;
 }
 
 export function useCallbackOne<T: Function>(
