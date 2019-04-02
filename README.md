@@ -5,8 +5,8 @@
 [![Build Status](https://travis-ci.org/alexreardon/use-memo-one.svg?branch=master)](https://travis-ci.org/alexreardon/use-memo-one)
 [![npm](https://img.shields.io/npm/v/use-memo-one.svg)](https://www.npmjs.com/package/use-memo-one)
 [![dependencies](https://david-dm.org/alexreardon/use-memo-one.svg)](https://david-dm.org/alexreardon/use-memo-one)
-[![min](https://img.shields.io/bundlephobia/min/use-memo-one.svg)](https://www.npmjs.com/package/use-memo-one)
-[![minzip](https://img.shields.io/bundlephobia/minzip/use-memo-one.svg)](https://www.npmjs.com/package/use-memo-one)
+[![min](https://img.shields.io/bundlephobia/min/use-memo-one.svg)](https://bundlephobia.com/result?p=use-memo-one)
+[![minzip](https://img.shields.io/bundlephobia/minzip/use-memo-one.svg)](https://bundlephobia.com/result?p=use-memo-one)
 
 ## Background
 
