@@ -2,8 +2,8 @@
   "name": "use-memo-one",
   "version": "0.0.4",
   "description": "useMemo and useCallback, but without cache invalidation",
-  "main": "dist/memoize-one.cjs.js",
-  "module": "dist/memoize-one.esm.js",
+  "main": "dist/use-memoize-one.cjs.js",
+  "module": "dist/use-memoize-one.esm.js",
   "sideEffects": false,
   "files": [
     "/dist",
