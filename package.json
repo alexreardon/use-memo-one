@@ -1,7 +1,7 @@
 {
   "name": "use-memo-one",
   "version": "0.0.8",
-  "description": "useMemo and useCallback, but without cache invalidation",
+  "description": "useMemo and useCallback but with a stable cache",
   "main": "dist/use-memo-one.cjs.js",
   "module": "dist/use-memo-one.esm.js",
   "sideEffects": false,
