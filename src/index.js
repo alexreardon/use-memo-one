@@ -37,6 +37,7 @@ export function useMemoOne<T>(
         result: getResult(),
       };
 
+  // commit the cache
   useEffect(() => {
     committed.current = cache;
   }, [cache]);
