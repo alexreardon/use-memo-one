@@ -3,5 +3,5 @@ cache: yarn
 node_js:
   - '8.11.3'
 script:
-  - yarn run validate
-  - yarn run test
+  - yarn validate
+  - yarn test
