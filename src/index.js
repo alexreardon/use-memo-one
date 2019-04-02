@@ -13,15 +13,6 @@ export function useMemoOne<T>(
   // the inputs array changes on every call
   inputs?: mixed[],
 ): T {
-  if (process.env.NODE_ENV !== 'production') {
-    if (inputs == null) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'use-memo-one: no memoization will occur as no input array was provided',
-      );
-    }
-  }
-
   // using useState to generate initial value as it is lazy
   const initial: Result<T> = useState(() => ({
     inputs,
@@ -36,12 +27,13 @@ export function useMemoOne<T>(
     committed.current = uncommitted.current;
   });
 
-  // Not sure why you would want to do this, but this is to have api parity with useMemo
-  if (inputs == null || committed.current.inputs == null) {
-    return getResult();
-  }
+  const isInputMatch: boolean = Boolean(
+    inputs &&
+      committed.current.inputs &&
+      areInputsEqual(inputs, committed.current.inputs),
+  );
 
-  if (areInputsEqual(inputs, committed.current.inputs)) {
+  if (isInputMatch) {
     return committed.current.result;
   }
 
