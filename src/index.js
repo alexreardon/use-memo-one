@@ -37,6 +37,8 @@ export function useMemoOne<T>(
     return committed.current.result;
   }
 
+  // Concurrent mode assumption: the last render will be the one that is committed
+  // I don't think this holds true in all cases, but I need to find some documentation
   uncommitted.current = {
     inputs,
     result: getResult(),
