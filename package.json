@@ -2,8 +2,8 @@
   "name": "use-memo-one",
   "version": "0.0.5",
   "description": "useMemo and useCallback, but without cache invalidation",
-  "main": "dist/use-memoize-one.cjs.js",
-  "module": "dist/use-memoize-one.esm.js",
+  "main": "dist/use-memo-one.cjs.js",
+  "module": "dist/use-memo-one.esm.js",
   "sideEffects": false,
   "files": [
     "/dist",
@@ -65,7 +65,7 @@
     "build": "yarn run build:clean && yarn run build:dist && yarn run build:flow",
     "build:clean": "rimraf dist",
     "build:dist": "rollup -c",
-    "build:flow": "echo \"// @flow\n\nexport * from '../src';\" > dist/use-memoize-one.cjs.js.flow",
+    "build:flow": "echo \"// @flow\n\nexport * from '../src';\" > dist/use-memo-one.cjs.js.flow",
     "prepublish": "yarn run build"
   }
 }
