@@ -53,3 +53,10 @@ export function useCallbackOne<T: Function>(
 ): T {
   return useMemoOne(() => callback, inputs);
 }
+
+// Aliased exports
+// A drop in replacement for useMemo and useCallback that plays
+// very well with eslint-plugin-react-hooks
+
+export const useMemo = useMemoOne;
+export const useCallback = useCallbackOne;
