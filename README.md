@@ -53,8 +53,17 @@ You can use two styles of imports
 // Avoids clashing with useMemo and useCallback
 import { useMemoOne, useCallbackOne } from 'use-memo-one';
 
-// Alternative: a drop in replacement
+// Alias: a drop in replacement for useMemo and useCallback
 // This style also plays very well with eslint-plugin-react-hooks
+import { useMemo, useCallback } from 'use-memo-one';
+```
+
+
+⚠️ The aliased import will only work if you use *only* `use-memo-one` and will clash if you also use
+
+```js
+import { useMemo, useCallback } from 'react';
+// ❌ naming clash
 import { useMemo, useCallback } from 'use-memo-one';
 ```
 
@@ -78,20 +87,9 @@ function App() {
 }
 ```
 
-⚠️ This will only work if you use *only* `useMemoOne` in a file and not also `useMemo`. Otherwise you would not be able to alias `useMemoOne` to `useMemo` as it would clash
+## [`eslint`](https://eslint.org/) rules
 
-```js
-import {useMemo} from 'react';
-
-// ❌ alias clashes with useMemo
-import {useMemoOne as useMemo} from 'use-memo-one';
-```
-
-If you want to be safe and ensure that `eslint-plugin-react-hooks` will always apply, you can add this `eslint` rule:
-
-## eslint rules
-
-Here are some eslint rules you are welcome to use
+Here are some `eslint` rules you are welcome to use
 
 ```js
 module.exports = {
@@ -106,14 +104,14 @@ module.exports = {
             name: 'react',
             importNames: ['useMemo', 'useCallback'],
             message:
-              'useMemo and useCallback are subject to cache busting. Please use useMemoOne and useCallbackOne',
+              '`useMemo` and `useCallback` are subject to cache busting. Please use `useMemoOne`',
           },
           // If you want to force use of the aliased imports from useMemoOne
           {
             name: 'use-memo-one',
             importNames: ['useMemoOne', 'useCallbackOne'],
             message:
-              'use-memo-one exports `useMemo` and `useCallback` which work nicer with eslint-plugin-react-hooks',
+              'use-memo-one exports `useMemo` and `useCallback` which work nicer with `eslint-plugin-react-hooks`',
           },
         ],
       },
