@@ -41,25 +41,17 @@ function App(props) {
 }
 ```
 
-## API
+### Aliased imports
 
-See [`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo) and [`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback)
+You can use this `import` style drop in replacement for `useMemo` and `useCallback`
 
-## Exports
-
-You can use two styles of imports
+This style also plays very well with [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks).
 
 ```js
-// Avoids clashing with useMemo and useCallback
-import { useMemoOne, useCallbackOne } from 'use-memo-one';
-
-// Alias: a drop in replacement for useMemo and useCallback
-// This style also plays very well with eslint-plugin-react-hooks
 import { useMemo, useCallback } from 'use-memo-one';
 ```
 
-
-⚠️ The aliased import will only work if you use *only* `use-memo-one` and will clash if you also use
+⚠️ The aliased exports `useMemo` and `useCallback` will only work if you use *only* `use-memo-one` and will clash if you also use `useMemo` or `useCallback` from `react`
 
 ```js
 import { useMemo, useCallback } from 'react';
@@ -67,9 +59,13 @@ import { useMemo, useCallback } from 'react';
 import { useMemo, useCallback } from 'use-memo-one';
 ```
 
+## API
+
+See [`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo) and [`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback)
+
 ## Linting
 
-`useMemo` and `useCallback` have fantastic linting rules with auto fixing in the [`eslint-plugin-react-hooks`](TODO) package. In order to take advantage of these with `useMemoOne` and `useCallbackOne`, structure your import like this:
+`useMemo` and `useCallback` have fantastic linting rules with auto fixing in the [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks) package. In order to take advantage of these with `useMemoOne` and `useCallbackOne`, structure your import like this:
 
 ```js
 import { useMemo, useCallback } from 'use-memo-one';
