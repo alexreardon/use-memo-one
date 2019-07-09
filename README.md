@@ -34,8 +34,8 @@ import { useMemoOne, useCallbackOne } from 'use-memo-one';
 
 function App(props) {
   const { name, age } = props;
-  const value = useMemoOne(() => ({hello: name}), [name]);
-  const getAge = useCallbackOne(() => age, [age])
+  const value = useMemoOne(() => ({ hello: name }), [name]);
+  const getAge = useCallbackOne(() => age, [age]);
 
   // ...
 }
@@ -51,7 +51,7 @@ This style also plays very well with [`eslint-plugin-react-hooks`](https://www.n
 import { useMemo, useCallback } from 'use-memo-one';
 ```
 
-⚠️ The aliased exports `useMemo` and `useCallback` will only work if you use *only* `use-memo-one` and will clash if you also use `useMemo` or `useCallback` from `react`
+⚠️ The aliased exports `useMemo` and `useCallback` will only work if you use _only_ `use-memo-one` and will clash if you also use `useMemo` or `useCallback` from `react`
 
 ```js
 import { useMemo, useCallback } from 'react';
@@ -70,7 +70,10 @@ See [`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo) and [`use
 ```js
 import { useMemo, useCallback } from 'use-memo-one';
 // Or your can alias it yourself
-import { useMemoOne as useMemo, useCallbackOne as useCallback} from 'use-memo-one';
+import {
+  useMemoOne as useMemo,
+  useCallbackOne as useCallback,
+} from 'use-memo-one';
 
 function App() {
   const [isActive] = useState(false);
@@ -78,8 +81,8 @@ function App() {
   const onClick = useCallback(() => {
     console.log('isActive', isActive);
 
-  // the input array will now be correctly checked by eslint-plugin-react-hooks
-  }, [isActive])
+    // the input array will now be correctly checked by eslint-plugin-react-hooks
+  }, [isActive]);
 }
 ```
 
@@ -89,11 +92,12 @@ Here are some `eslint` rules you are welcome to use
 
 ```js
 module.exports = {
-'rules': {
-  // ...other rules
+  rules: {
+    // ...other rules
 
-  'no-restricted-imports': [
-    'error', {
+    'no-restricted-imports': [
+      'error',
+      {
         // If you want to force an application to always use useMemoOne
         paths: [
           {
@@ -112,6 +116,6 @@ module.exports = {
         ],
       },
     ],
-  }
+  },
 };
 ```
