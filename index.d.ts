@@ -14,4 +14,9 @@ declare function useCallbackOne<T extends (...args: any[]) => any>(
   inputs: DependencyList | undefined,
 ): T;
 
-export { useMemoOne, useCallbackOne };
+export {
+  useMemoOne,
+  useCallbackOne,
+  useMemoOne as useMemo,
+  useCallbackOne as useCallback
+};
