@@ -14,28 +14,28 @@ export function useMemoOne<T>(
   inputs?: mixed[],
 ): T {
   // using useState to generate initial value as it is lazy
-  const initial: Cache<T> = useState(() => ({
+  const [initial] = useState((): Cache<T> => ({
     inputs,
     result: getResult(),
-  }))[0];
+  }));
 
-  const committed = useRef<Cache<T>>(initial);
+  const committed = useRef<Cache<T>>();
 
-  // persist any uncommitted changes after they have been committed
-
-  const isInputMatch: boolean = Boolean(
-    inputs &&
-      committed.current.inputs &&
-      areInputsEqual(inputs, committed.current.inputs),
-  );
-
-  // create a new cache if required
-  const cache: Cache<T> = isInputMatch
-    ? committed.current
-    : {
+  let cache = committed.current;
+  if (cache) {
+    const useCache = Boolean(
+      inputs && cache.inputs && areInputsEqual(inputs, cache.inputs),
+    );
+    // create a new cache if required
+    if (!useCache) {
+      cache = {
         inputs,
         result: getResult(),
       };
+    }
+  } else {
+    cache = initial;
+  }
 
   // commit the cache
   useEffect(() => {
