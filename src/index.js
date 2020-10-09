@@ -20,8 +20,9 @@ export function useMemoOne<T>(
   }));
 
   const committed = useRef<Cache<T>>();
+  const prevCache = committed.current;
 
-  let cache = committed.current;
+  let cache = prevCache;
   if (cache) {
     const useCache = Boolean(
       inputs && cache.inputs && areInputsEqual(inputs, cache.inputs),
@@ -40,6 +41,10 @@ export function useMemoOne<T>(
   // commit the cache
   useEffect(() => {
     committed.current = cache;
+    if (prevCache == initial) {
+      // clear the initial cache to free memory
+      initial.inputs = initial.result = undefined;
+    }
   }, [cache]);
 
   return cache.result;
