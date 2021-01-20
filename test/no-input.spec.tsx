@@ -1,7 +1,7 @@
 // @flow
 import React, { type Node } from 'react';
 import { mount } from 'enzyme';
-import { useMemoOne } from '../src';
+import { useMemoOne } from '../src/use-memo-one';
 
 type WithMemoProps = {|
   inputs?: mixed[],

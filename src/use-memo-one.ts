@@ -1,25 +1,24 @@
-// @flow
 import { useRef, useState, useEffect } from 'react';
 import areInputsEqual from './are-inputs-equal';
 
-type Cache<T> = {|
-  inputs: ?(mixed[]),
-  result: T,
-|};
+type Cache<Value> = {
+  inputs?: unknown[],
+  result: Value,
+};
 
-export function useMemoOne<T>(
+export function useMemoOne<ResultType>(
   // getResult changes on every call,
-  getResult: () => T,
+  getResult: () => ResultType,
   // the inputs array changes on every call
-  inputs?: mixed[],
-): T {
+  inputs?: unknown[],
+): ResultType {
   // using useState to generate initial value as it is lazy
-  const initial: Cache<T> = useState(() => ({
+  const initial: Cache<ResultType> = useState(() => ({
     inputs,
     result: getResult(),
   }))[0];
   const isFirstRun = useRef<boolean>(true);
-  const committed = useRef<Cache<T>>(initial);
+  const committed = useRef<Cache<ResultType>>(initial);
 
   // persist any uncommitted changes after they have been committed
   const useCache: boolean = isFirstRun.current || Boolean(
@@ -29,7 +28,7 @@ export function useMemoOne<T>(
   );
 
   // create a new cache if required
-  const cache: Cache<T> = useCache
+  const cache: Cache<ResultType> = useCache
     ? committed.current
     : {
         inputs,
@@ -45,12 +44,12 @@ export function useMemoOne<T>(
   return cache.result;
 }
 
-export function useCallbackOne<T: Function>(
+export function useCallbackOne<ResultType>(
   // getResult changes on every call,
-  callback: T,
+  callback: () => ResultType,
   // the inputs array changes on every call
-  inputs?: mixed[],
-): T {
+  inputs?: unknown[],
+): () => ResultType {
   return useMemoOne(() => callback, inputs);
 }
 
