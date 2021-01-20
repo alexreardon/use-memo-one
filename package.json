@@ -24,7 +24,7 @@
     "url": "https://github.com/alexreardon/use-memo-one.git"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
