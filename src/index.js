@@ -18,19 +18,18 @@ export function useMemoOne<T>(
     inputs,
     result: getResult(),
   }))[0];
-
+  const isFirstRun = useRef<boolean>(true);
   const committed = useRef<Cache<T>>(initial);
 
   // persist any uncommitted changes after they have been committed
-
-  const isInputMatch: boolean = Boolean(
+  const useCache: boolean = isFirstRun.current || Boolean(
     inputs &&
-      committed.current.inputs &&
-      areInputsEqual(inputs, committed.current.inputs),
+    committed.current.inputs &&
+    areInputsEqual(inputs, committed.current.inputs),
   );
 
   // create a new cache if required
-  const cache: Cache<T> = isInputMatch
+  const cache: Cache<T> = useCache
     ? committed.current
     : {
         inputs,
@@ -39,6 +38,7 @@ export function useMemoOne<T>(
 
   // commit the cache
   useEffect(() => {
+    isFirstRun.current = false;
     committed.current = cache;
   }, [cache]);
 

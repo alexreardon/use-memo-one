@@ -75,3 +75,13 @@ it('should start memoizing if inputs are provided', () => {
   // reference changed
   expect(fourth).not.toBe(third);
 });
+
+it('should only call get result once on first pass', () => {
+  const getResult = jest.fn().mockReturnValue({ hello: 'friend' });
+  const wrapper = mount(
+    <WithMemo getResult={getResult} inputs={undefined}>{() => null}</WithMemo>,
+  );
+
+  // initial call
+  expect(getResult).toHaveBeenCalledTimes(1);
+})
