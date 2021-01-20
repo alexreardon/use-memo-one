@@ -22,11 +22,13 @@ export function useMemoOne<T>(
   const committed = useRef<Cache<T>>(initial);
 
   // persist any uncommitted changes after they have been committed
-  const useCache: boolean = isFirstRun.current || Boolean(
-    inputs &&
-    committed.current.inputs &&
-    areInputsEqual(inputs, committed.current.inputs),
-  );
+  const useCache: boolean =
+    isFirstRun.current ||
+    Boolean(
+      inputs &&
+        committed.current.inputs &&
+        areInputsEqual(inputs, committed.current.inputs),
+    );
 
   // create a new cache if required
   const cache: Cache<T> = useCache
