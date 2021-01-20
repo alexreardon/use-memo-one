@@ -78,7 +78,7 @@ it('should start memoizing if inputs are provided', () => {
 
 it('should only call get result once on first pass', () => {
   const getResult = jest.fn().mockReturnValue({ hello: 'friend' });
-  const wrapper = mount(
+  mount(
     <WithMemo getResult={getResult} inputs={undefined}>
       {() => null}
     </WithMemo>,
