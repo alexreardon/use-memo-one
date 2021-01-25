@@ -2,7 +2,7 @@
 
 [`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo) and [`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback) with a stable cache (semantic guarantee)
 
-[![Build Status](https://travis-ci.org/alexreardon/use-memo-one.svg?branch=master)](https://travis-ci.org/alexreardon/use-memo-one)
+[![Build Status](https://github.com/alexreardon/use-memo-one/actions?query=workflow%3AValidate)](https://github.com/alexreardon/use-memo-one/workflows/Validate/badge.svg)
 [![npm](https://img.shields.io/npm/v/use-memo-one.svg)](https://www.npmjs.com/package/use-memo-one)
 [![dependencies](https://david-dm.org/alexreardon/use-memo-one.svg)](https://david-dm.org/alexreardon/use-memo-one)
 [![min](https://img.shields.io/bundlephobia/min/use-memo-one.svg)](https://bundlephobia.com/result?p=use-memo-one)
