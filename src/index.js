@@ -36,11 +36,12 @@ export function useMemoOne<T>(
         result: getResult(),
       };
 
-  // commit the cache
   useEffect(() => {
     isFirstRun.current = false;
+
+    // Assigning cache on each run (cheap)
     committed.current = cache;
-  }, [cache]);
+  });
 
   return cache.result;
 }
