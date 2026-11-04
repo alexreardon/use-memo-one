@@ -1,7 +1,7 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 
 module.exports = {
-  setupFiles: ['./test/env-setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/test/env-setup.js'],
   // node_modules is default.
   testPathIgnorePatterns: ['/node_modules/'],
   watchPlugins: [
@@ -9,4 +9,7 @@ module.exports = {
     'jest-watch-typeahead/testname',
   ],
   verbose: true,
+  "transformIgnorePatterns": [
+    '/node_modules/(?!@belzile/react-shallow-renderer/)',
+  ]
 };

@@ -112,4 +112,12 @@ module.exports = {
     // Second argument to hook functions
     'react-hooks/exhaustive-deps': 'warn',
   },
+  overrides: [
+    {
+      files: ['test/env-setup.js'],
+      rules: {
+        'import/no-dynamic-require': 'off',
+      }
+    },
+  ],
 };
